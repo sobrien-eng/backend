@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "paths": {
+    "/movie": {
+      "name": "/movie",
+      "lambdaFunction": "moviebackend",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "/user": {
+      "name": "/user",
+      "lambdaFunction": "userbackend",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}
