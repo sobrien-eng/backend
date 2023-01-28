@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 
+
 // declare a new express app
 const app = express()
 app.use(bodyParser.json())
@@ -14,19 +15,29 @@ app.use(function(req, res, next) {
   next()
 });
 
-app.get('/user', function(req, res) {
-  // get all users
-  res.json({success: 'get call succeed!', url: req.url});
+const dataAccess = require("./DAL");
+
+app.get('/user', async function(req, res) {
+    var users = await dataAccess.DA.getAllUsers();
+    console.log(users);
+    res.json(users);
 });
 
-app.get('/user/{id}', function(req, res) {
-  // get a user by the id
-  res.json({success: 'get call succeed!', url: req.url});
+app.get('/user/{id}', async function(req, res) {
+  var user = await dataAccess.DA.getUserById();
+    console.log(user);
+    res.json(user);
 });
 
 app.post('/user', function(req, res) {
   // Add a user during registration
   res.json({success: 'user added!', url: req.url, body: req.body})
+});
+
+app.post('/user', (request, response) => {
+  const newUser = request.body;
+  users.push(newUser);
+  response.json(users);
 });
 
 app.delete('/user/{id}', function(req, res) {
